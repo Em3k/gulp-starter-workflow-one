@@ -1,0 +1,21 @@
+{
+  "name": "app-project-win",
+  "description": "Web Template",
+  "main": "index.js",
+  "authors": [
+    "Em3k"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "susy": "^2.2.12",
+    "breakpoint-sass": "^2.7.0"
+  }
+}
