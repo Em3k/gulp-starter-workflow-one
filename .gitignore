@@ -32,6 +32,7 @@ Thumbs.db
 node_modules/
 bower_components/
 app/production
+app/development/assets/maps
 .sass-cache
 *.css.map
 # dist/
