@@ -7,6 +7,12 @@
 // SASS BREAKPOINT
 @import "../../bower_components/breakpoint-sass/stylesheets/breakpoint";
 
+// Typi
+@import "../../bower_components/typi/scss/typi";
+
+// Modular-Scale
+@import "../../bower_components/modular-scale/stylesheets/modular-scale";
+
 ////////////////////////////////////////////////////////////////////////
 
 // 1. Configuration and helpers
@@ -17,7 +23,8 @@
 
 // 2. Vendors
 @import
-  'vendor/normalize';
+  //'vendor/normalize',
+  'vendor/reset';
 
 // 3. Base stuff
 @import

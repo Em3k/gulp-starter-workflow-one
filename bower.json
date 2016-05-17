@@ -16,6 +16,10 @@
   ],
   "dependencies": {
     "susy": "^2.2.12",
-    "breakpoint-sass": "^2.7.0"
+    "breakpoint-sass": "^2.7.0",
+    "typi": "^2.2.1"
+  },
+  "devDependencies": {
+    "modular-scale": "^2.1.3"
   }
 }
