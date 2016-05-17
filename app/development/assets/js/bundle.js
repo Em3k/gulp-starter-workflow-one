@@ -4,10 +4,10 @@ var $ = require('jquery');
 var test = require('./test.js');
 
 
-$('p').css('background-color', 'red');
+//$('p').css('background-color', 'red');
 
 },{"./test.js":2,"jquery":3}],2:[function(require,module,exports){
-console.log("Hello from test.js - app_components/scripts/dsdsd");
+console.log("-= Hello from test.js =-");
 
 },{}],3:[function(require,module,exports){
 /*!
