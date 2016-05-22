@@ -149,12 +149,20 @@ html {
 html {
   font-size: 100%;
   line-height: 1.4; }
-  @media all and (min-width: 600px) {
+  @media (min-width: 37.5em) {
     html {
       font-size: 112.5%; } }
-  @media all and (min-width: 1200px) {
+  @media (min-width: 75em) {
     html {
       font-size: 125%; } }
+
+h1 {
+  font-size: 2rem;
+  line-height: 1.2; }
+  @media (min-width: 37.5em) {
+    h1 {
+      font-size: 3rem;
+      line-height: 1.3; } }
 
 .page {
   clear: both;
@@ -170,7 +178,7 @@ html {
 .aside {
   background-color: green; }
 
-@media (min-width: 600px) {
+@media (min-width: 37.5em) {
   .content {
     background-color: #ccc; } }
 
