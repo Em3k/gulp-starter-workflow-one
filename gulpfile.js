@@ -16,6 +16,7 @@ var gulp          = require("gulp"),
     browserify    = require("browserify"),
     watchify      = require("watchify"),
     gutil         = require('gulp-util'),
+    babel         = require('gulp-babel'),
     source        = require("vinyl-source-stream"),
     buffer        = require("vinyl-buffer"),
     assign        = require("lodash.assign"),
@@ -130,6 +131,9 @@ var customOpts = {
 };
 var opts  = assign({}, watchify.args, customOpts);
 var b     = watchify(browserify(opts));
+
+// add transformations here
+b.transform('babelify', { presets: ['es2015'] });
 
 // gulp task
 gulp.task('js2', bundle);

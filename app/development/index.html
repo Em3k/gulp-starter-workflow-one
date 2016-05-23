@@ -7,27 +7,29 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-
+  
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/app.css">
 </head>
 <body>
-  <div class="page">
-    <div class="content">
-      <h1>H1 Heading</h1>
-      <h2>H2 Heading</h2>
-      <h3>H3 Heading</h3>
-      <h4>H4 Heading</h4>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus ex enim vel quia placeat. Ab temporibus id, sunt aliquid libero sequi distinctio beatae? Harum voluptas consequatur ratione eligendi maxime tempore.</p>
-    </div>
-    <div class="aside">
-      <h1>H1 Heading</h1>
-      <h2>H2 Heading</h2>
-      <h3>H3 Heading</h3>
-      <h4>H4 Heading</h4>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus ex enim vel quia placeat. Ab temporibus id, sunt aliquid libero sequi distinctio beatae? Harum voluptas consequatur ratione eligendi maxime tempore.</p>
-    </div>
-  </div><!--/page-->
+  <div class="header">
+    <button class="js-menu-show header__menu-toggle material-icons">menu</button>
+  </div>
 
+  <aside class="js-side-nav side-nav">
+    <nav class="js-side-nav-container side-nav__container">
+      <button class="js-menu-hide side-nav__hide material-icons">close</button>
+      <header class="side-nav__header">
+        Side Nav
+      </header>
+      <ul class="side-nav__content">
+        <li>One</li>
+        <li>Two</li>
+        <li>Three</li>
+        <li>Four</li>
+      </ul>
+    </nav>
+  </aside>
 
   <!-- scripts -->
   <script src="assets/js/bundle.js"></script>

@@ -1,17 +1,161 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+'use strict';
+
 var $ = require('jquery');
 
+var mobileNav = require('./side-nav.js');
 var test = require('./test.js');
-
 
 //$('p').css('background-color', 'red');
 
-},{"./test.js":2,"jquery":3}],2:[function(require,module,exports){
-console.log("-= Hello from test.js =-");
+},{"./side-nav.js":2,"./test.js":3,"jquery":4}],2:[function(require,module,exports){
+/**
+ *
+ * Copyright 2016 Google Inc. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var SideNav = function () {
+  function SideNav() {
+    _classCallCheck(this, SideNav);
+
+    this.showButtonEl = document.querySelector('.js-menu-show');
+    this.hideButtonEl = document.querySelector('.js-menu-hide');
+    this.sideNavEl = document.querySelector('.js-side-nav');
+    this.sideNavContainerEl = document.querySelector('.js-side-nav-container');
+
+    this.showSideNav = this.showSideNav.bind(this);
+    this.hideSideNav = this.hideSideNav.bind(this);
+    this.blockClicks = this.blockClicks.bind(this);
+    this.onTouchStart = this.onTouchStart.bind(this);
+    this.onTouchMove = this.onTouchMove.bind(this);
+    this.onTouchEnd = this.onTouchEnd.bind(this);
+    this.onTransitionEnd = this.onTransitionEnd.bind(this);
+    this.update = this.update.bind(this);
+
+    this.startX = 0;
+    this.currentX = 0;
+    this.touchingSideNav = false;
+
+    this.addEventListeners();
+  }
+
+  _createClass(SideNav, [{
+    key: 'addEventListeners',
+    value: function addEventListeners() {
+      this.showButtonEl.addEventListener('click', this.showSideNav);
+      this.hideButtonEl.addEventListener('click', this.hideSideNav);
+      this.sideNavEl.addEventListener('click', this.hideSideNav);
+      this.sideNavContainerEl.addEventListener('click', this.blockClicks);
+
+      document.addEventListener('touchstart', this.onTouchStart);
+      document.addEventListener('touchmove', this.onTouchMove);
+      document.addEventListener('touchend', this.onTouchEnd);
+    }
+  }, {
+    key: 'onTouchStart',
+    value: function onTouchStart(evt) {
+      if (!this.sideNavEl.classList.contains('side-nav--visible')) return;
+
+      this.startX = evt.touches[0].pageX;
+      this.currentX = this.startX;
+
+      this.touchingSideNav = true;
+      requestAnimationFrame(this.update);
+    }
+  }, {
+    key: 'onTouchMove',
+    value: function onTouchMove(evt) {
+      if (!this.touchingSideNav) return;
+
+      this.currentX = evt.touches[0].pageX;
+      var translateX = Math.min(0, this.currentX - this.startX);
+
+      if (translateX < 0) {
+        evt.preventDefault();
+      }
+    }
+  }, {
+    key: 'onTouchEnd',
+    value: function onTouchEnd(evt) {
+      if (!this.touchingSideNav) return;
+
+      this.touchingSideNav = false;
+
+      var translateX = Math.min(0, this.currentX - this.startX);
+      this.sideNavContainerEl.style.transform = '';
+
+      if (translateX < 0) {
+        this.hideSideNav();
+      }
+    }
+  }, {
+    key: 'update',
+    value: function update() {
+      if (!this.touchingSideNav) return;
+
+      requestAnimationFrame(this.update);
+
+      var translateX = Math.min(0, this.currentX - this.startX);
+      this.sideNavContainerEl.style.transform = 'translateX(' + translateX + 'px)';
+    }
+  }, {
+    key: 'blockClicks',
+    value: function blockClicks(evt) {
+      evt.stopPropagation();
+    }
+  }, {
+    key: 'onTransitionEnd',
+    value: function onTransitionEnd(evt) {
+      this.sideNavEl.classList.remove('side-nav--animatable');
+      this.sideNavEl.removeEventListener('transitionend', this.onTransitionEnd);
+    }
+  }, {
+    key: 'showSideNav',
+    value: function showSideNav() {
+      this.sideNavEl.classList.add('side-nav--animatable');
+      this.sideNavEl.classList.add('side-nav--visible');
+      this.sideNavEl.addEventListener('transitionend', this.onTransitionEnd);
+    }
+  }, {
+    key: 'hideSideNav',
+    value: function hideSideNav() {
+      this.sideNavEl.classList.add('side-nav--animatable');
+      this.sideNavEl.classList.remove('side-nav--visible');
+      this.sideNavEl.addEventListener('transitionend', this.onTransitionEnd);
+    }
+  }]);
+
+  return SideNav;
+}();
+
+new SideNav();
 
 },{}],3:[function(require,module,exports){
+"use strict";
+
+console.log("-= Hello from test.js =-");
+
+},{}],4:[function(require,module,exports){
 /*!
- * jQuery JavaScript Library v2.2.3
+ * jQuery JavaScript Library v2.2.4
  * http://jquery.com/
  *
  * Includes Sizzle.js
@@ -21,7 +165,7 @@ console.log("-= Hello from test.js =-");
  * Released under the MIT license
  * http://jquery.org/license
  *
- * Date: 2016-04-05T19:26Z
+ * Date: 2016-05-20T17:23Z
  */
 
 (function( global, factory ) {
@@ -77,7 +221,7 @@ var support = {};
 
 
 var
-	version = "2.2.3",
+	version = "2.2.4",
 
 	// Define a local copy of jQuery
 	jQuery = function( selector, context ) {
@@ -5018,13 +5162,14 @@ jQuery.Event.prototype = {
 	isDefaultPrevented: returnFalse,
 	isPropagationStopped: returnFalse,
 	isImmediatePropagationStopped: returnFalse,
+	isSimulated: false,
 
 	preventDefault: function() {
 		var e = this.originalEvent;
 
 		this.isDefaultPrevented = returnTrue;
 
-		if ( e ) {
+		if ( e && !this.isSimulated ) {
 			e.preventDefault();
 		}
 	},
@@ -5033,7 +5178,7 @@ jQuery.Event.prototype = {
 
 		this.isPropagationStopped = returnTrue;
 
-		if ( e ) {
+		if ( e && !this.isSimulated ) {
 			e.stopPropagation();
 		}
 	},
@@ -5042,7 +5187,7 @@ jQuery.Event.prototype = {
 
 		this.isImmediatePropagationStopped = returnTrue;
 
-		if ( e ) {
+		if ( e && !this.isSimulated ) {
 			e.stopImmediatePropagation();
 		}
 
@@ -5972,19 +6117,6 @@ function getWidthOrHeight( elem, name, extra ) {
 		val = name === "width" ? elem.offsetWidth : elem.offsetHeight,
 		styles = getStyles( elem ),
 		isBorderBox = jQuery.css( elem, "boxSizing", false, styles ) === "border-box";
-
-	// Support: IE11 only
-	// In IE 11 fullscreen elements inside of an iframe have
-	// 100x too small dimensions (gh-1764).
-	if ( document.msFullscreenElement && window.top !== window ) {
-
-		// Support: IE11 only
-		// Running getBoundingClientRect on a disconnected node
-		// in IE throws an error.
-		if ( elem.getClientRects().length ) {
-			val = Math.round( elem.getBoundingClientRect()[ name ] * 100 );
-		}
-	}
 
 	// Some non-html elements return undefined for offsetWidth, so check for null/undefined
 	// svg - https://bugzilla.mozilla.org/show_bug.cgi?id=649285
@@ -7876,6 +8008,7 @@ jQuery.extend( jQuery.event, {
 	},
 
 	// Piggyback on a donor event to simulate a different one
+	// Used only for `focus(in | out)` events
 	simulate: function( type, elem, event ) {
 		var e = jQuery.extend(
 			new jQuery.Event(),
@@ -7883,27 +8016,10 @@ jQuery.extend( jQuery.event, {
 			{
 				type: type,
 				isSimulated: true
-
-				// Previously, `originalEvent: {}` was set here, so stopPropagation call
-				// would not be triggered on donor event, since in our own
-				// jQuery.event.stopPropagation function we had a check for existence of
-				// originalEvent.stopPropagation method, so, consequently it would be a noop.
-				//
-				// But now, this "simulate" function is used only for events
-				// for which stopPropagation() is noop, so there is no need for that anymore.
-				//
-				// For the 1.x branch though, guard for "click" and "submit"
-				// events is still used, but was moved to jQuery.event.stopPropagation function
-				// because `originalEvent` should point to the original event for the constancy
-				// with other events and for more focused logic
 			}
 		);
 
 		jQuery.event.trigger( e, null, elem );
-
-		if ( e.isDefaultPrevented() ) {
-			event.preventDefault();
-		}
 	}
 
 } );
