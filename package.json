@@ -4,13 +4,15 @@
   "description": "Web Template",
   "main": "index.js",
   "dependencies": {
-    "jquery": "^2.2.3"
+    "jquery": "^2.2.3",
+    "scrollmagic": "^2.0.5"
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.9.0",
     "babelify": "^7.3.0",
     "browser-sync": "^2.12.3",
     "browserify": "^13.0.0",
+    "gsap": "^1.18.4",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-babel": "^6.1.2",
@@ -31,6 +33,11 @@
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.7.0"
+  },
+  "browser": {
+    "gsap-tween-max": "./node_modules/gsap/src/uncompressed/TweenMax.js",
+    "scroll-magic": "./node_modules/scrollmagic/scrollmagic/uncompressed/ScrollMagic.js",
+    "scroll-magic-animation": "./node_modules/scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js"
   },
   "scripts": {
     "build": "browserify app/development/assets/js/app.js -o app/development/assets/js/bundle.js"

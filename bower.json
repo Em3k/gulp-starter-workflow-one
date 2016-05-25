@@ -17,9 +17,24 @@
   "dependencies": {
     "susy": "^2.2.12",
     "breakpoint-sass": "^2.7.0",
-    "typi": "^2.2.1"
+    "typi": "^2.2.1",
+    "gsap": "^1.18.4",
+    "scrollmagic": "^2.0.5"
   },
   "devDependencies": {
     "modular-scale": "^2.1.3"
-  }
+  },
+  "overrides": {
+      "gsap": {
+        "main": [
+          "./src/uncompressed/TweenMax.js"
+        ]
+      },
+      "scrollmagic": {
+        "main": [
+          "./scrollmagic/scrollmagic/uncompressed/ScrollMagic.js",
+          "./scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js"
+        ]
+      }
+    }
 }
