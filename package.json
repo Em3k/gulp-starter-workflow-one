@@ -34,12 +34,7 @@
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.7.0"
   },
-  "browser": {
-    "gsap-tween-max": "./node_modules/gsap/src/uncompressed/TweenMax.js",
-    "scroll-magic": "./node_modules/scrollmagic/scrollmagic/uncompressed/ScrollMagic.js",
-    "scroll-magic-animation": "./node_modules/scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js"
-  },
-  "scripts": {
+    "scripts": {
     "build": "browserify app/development/assets/js/app.js -o app/development/assets/js/bundle.js"
   },
   "repository": {
